@@ -48,8 +48,9 @@ app.get('/gallery/:id', (req, res) => {
     } if (record.system == 'Immich') {
         record.location = 'https://photos1.nookalley.com/share/' + record.location 
     } else {
-        res.status('500')
-        res.end(JSON.stringify({"Error": "Internal Error", "Fault": "Unable to determine system gallery is on"}))
+        console.error(`Gallery 404, a request for ${record.id} could not be found`)
+        res.status(500)
+        return res.end(JSON.stringify({"Error": "Internal Error", "Fault": "Unable to determine system gallery is on"}))
     }
     res.status(200)
     res.end(JSON.stringify(record)) // Send data to client when complete
