@@ -26,15 +26,15 @@ app.get('/gallery/:id', (req, res) => {
         {
             1: {
                 system: 'Immich',
-                location: 'dgTuR4kTbo4Vibvw8PJn4_pqEWpDpv-Mov8AjVeKdDJBYzBOIINU8RobSwq4nFLG5Gk',
-                ready: 'true',
-                paid: 'No'
+                ready: 'Ready',
+                paid: 'No',
+                location: 'dgTuR4kTbo4Vibvw8PJn4_pqEWpDpv-Mov8AjVeKdDJBYzBOIINU8RobSwq4nFLG5Gk'
             },
             2: {
-                ready: 'true',
                 system: 'Pic-Time',
-                location: 'katrinadexter',
-                paid: 'Yes'
+                ready: 'true',
+                paid: 'Yes',
+                location: 'katrinadexter'
             }
         }
     ] // Temporary dummy response from dummy database (see line 12)
