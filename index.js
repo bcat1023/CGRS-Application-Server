@@ -10,9 +10,9 @@ require('colors');
 console.log('STOP: THIS PROJECT IS STILL UNDER DEVELOPMENT AND IS PRONE TO CRASHES, THIS PROJECT STILL CONTAINS KNOWN BUGS THAT WILL CAUSE SERVER CRASHES AND UNEXPECTED BEHAVIOR\n '.red)
 console.log('STOP: This is a pre-alpha release, it is not to be used in production'.red)
 console.log(`
-    █▄░█ █▀█ █░█░█   █ █▄░█ █ ▀█▀ █ ▄▀█ █░░ █ ▀█ █ █▄░█ █▀▀ ░ ░ ░
-    █░▀█ █▄█ ▀▄▀▄▀   █ █░▀█ █ ░█░ █ █▀█ █▄▄ █ █▄ █ █░▀█ █▄█ ▄ ▄ ▄
-    `)
+█▄░█ █▀█ █░█░█   █ █▄░█ █ ▀█▀ █ ▄▀█ █░░ █ ▀█ █ █▄░█ █▀▀ ░ ░ ░
+█░▀█ █▄█ ▀▄▀▄▀   █ █░▀█ █ ░█░ █ █▀█ █▄▄ █ █▄ █ █░▀█ █▄█ ▄ ▄ ▄
+`)
 var path = require('node:path')
 var process = require('node:process')
 const { GoogleAuth } = require('google-auth-library');
@@ -48,18 +48,23 @@ app.get('/gallery/:id', async (req, res) => {
     var input = parseInt(req.params.id);
     if (Number.isInteger(input) == false) {
         res.status(400)
-        res.end(JSON.stringify({ "Error": 400, "Fault": "The server recieved invalid data or malformed syntax" }))
-        return console.error(`HTTP 400, Request falied to pass input sanitization because input was not a integer. Offending Input: ${req.params.id}`.red)
+        res.end(JSON.stringify({ "Error": 111, "Next Step": "TODO: Handle user error" }))
+        return console.error(`ERROR 111. Offending Input: ${req.params.id}`.red)
     } // Check if input is an integer
     if (String(input).length > 1) {
         res.status(413)
-        res.end(JSON.stringify({ "Error": 413, "Fault": "Gallery ID is far to long to be a valid ID, either the condition in the code has not been updated to reflect new ID sizes, or this is an invalid ID on account of its size" }))
+        res.end(JSON.stringify({ "Error": 413, "Fault": "Gallery ID is far to long to be a valid ID, either the condition in the code has not been updated to reflect new ID sizes, or this is an invalid ID on account of its size." }))
         return console.error(`HTTP 413, Request falied to pass input sanitization because input was too long to be a valid ID. Offending Input: ${req.params.id}`.red)
     } // Check if input is of valid length
     if (galleryID === 1) {
         res.status(403)
-        res.end(JSON.stringify({"Error": 403, "Fault": "Pen testing is prohibited, but if you do anyways and find something, please let me know at admin@nookalley.com"}))
-        return console.error(`Someone is pentesting the server!!! Offending GalleryID ${galleryID}`.red)
+        res.end(JSON.stringify({"Error": 403, "Fault": "Pen testing is prohibited, but if you do anyways and find something, please let me know at admin@nookalley.com."}))
+        return console.error(`Someone is pentesting the server!!! Offending GalleryID ${galleryID}.`.red)
+    }
+    if (galleryID === 0) {
+        res.status(400)
+        res.end(JSON.stringify({"Error": "400", "Fault": "Malformed syntax, 0 is equal to null, can't read null from a database."}))
+        return console.error(`HTTP 400, `.red)
     }
     if(debug) {console.log('𝒾 Gallery ID passed sanitization checks'.yellow)}
 
@@ -114,11 +119,7 @@ app.get('/gallery/:id', async (req, res) => {
 })
 console.log("✓ Server ready, listening on port 8000!".green);
 console.log(`
-░█████╗░░░░░██████╗░░░░██████╗░░░░░██████╗  ░█████╗░███╗░░██╗██╗░░░░░██╗███╗░░██╗███████╗██╗
-██╔══██╗░░░██╔════╝░░░░██╔══██╗░░░██╔════╝  ██╔══██╗████╗░██║██║░░░░░██║████╗░██║██╔════╝██║
-██║░░╚═╝░░░██║░░██╗░░░░██████╔╝░░░╚█████╗░  ██║░░██║██╔██╗██║██║░░░░░██║██╔██╗██║█████╗░░██║
-██║░░██╗░░░██║░░╚██╗░░░██╔══██╗░░░░╚═══██╗  ██║░░██║██║╚████║██║░░░░░██║██║╚████║██╔══╝░░╚═╝
-╚█████╔╝██╗╚██████╔╝██╗██║░░██║██╗██████╔╝  ╚█████╔╝██║░╚███║███████╗██║██║░╚███║███████╗██╗
-░╚════╝░╚═╝░╚═════╝░╚═╝╚═╝░░╚═╝╚═╝╚═════╝░  ░╚════╝░╚═╝░░╚══╝╚══════╝╚═╝╚═╝░░╚══╝╚══════╝╚═╝
+█▀▀ █▀▀ █▀█ █▀   █▀█ █▄░█ █░░ █ █▄░█ █▀▀ █ █ █
+█▄▄ █▄█ █▀▄ ▄█   █▄█ █░▀█ █▄▄ █ █░▀█ ██▄ ▄ ▄ ▄
 `.green)
 app.listen('8000')

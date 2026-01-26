@@ -3,4 +3,4 @@
 V2 will add the database and end the use of the current hardcoded example database, it also aims to improve code comments and improve error handling
 
 ## Credits
-* [ASCII Text Generator](https://fsymbols.com/generators/carty/#google_vignette) (Useful for console ascii art)
+* [ASCII Text Generator](https://fsymbols.com/generators/carty/) (Useful for console ascii art)
