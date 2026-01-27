@@ -45,26 +45,27 @@ app.get('/gallery/:id', async (req, res) => {
     var galleryID = parseInt(req.params.id)
     if(debug) {console.log(`𝒾 Request made for gallery ${req.params.id}`.yellow)}
     // Input sanitization, making sure inputs are valid and not potentially malicious
+    // TODO: Fill in faults in error messages
     var input = parseInt(req.params.id);
     if (Number.isInteger(input) == false) {
         res.status(400)
-        res.end(JSON.stringify({ "Error": 111, "Next Step": "TODO: Handle user error" }))
-        return console.error(`ERROR 111. Offending Input: ${req.params.id}`.red)
+        res.end(JSON.stringify({ "Error": 100, "Next Step": "TODO: Handle user error" }))
+        return console.error(`ERROR 100. Offending Input: ${req.params.id}`.red)
     } // Check if input is an integer
     if (String(input).length > 1) {
         res.status(413)
-        res.end(JSON.stringify({ "Error": 413, "Fault": "Gallery ID is far to long to be a valid ID, either the condition in the code has not been updated to reflect new ID sizes, or this is an invalid ID on account of its size." }))
-        return console.error(`HTTP 413, Request falied to pass input sanitization because input was too long to be a valid ID. Offending Input: ${req.params.id}`.red)
+        res.end(JSON.stringify({ "Error": 101, "Fault": "Gallery ID is far to long to be a valid ID, either the condition in the code has not been updated to reflect new ID sizes, or this is an invalid ID on account of its size." }))
+        return console.error(`HTTP 101, Request falied to pass input sanitization because input was too long to be a valid ID. Offending Input: ${req.params.id}`.red)
     } // Check if input is of valid length
     if (galleryID === 1) {
         res.status(403)
-        res.end(JSON.stringify({"Error": 403, "Fault": "Pen testing is prohibited, but if you do anyways and find something, please let me know at admin@nookalley.com."}))
+        res.end(JSON.stringify({"Error": 102, "Fault": ""}))
         return console.error(`Someone is pentesting the server!!! Offending GalleryID ${galleryID}.`.red)
     }
     if (galleryID === 0) {
         res.status(400)
-        res.end(JSON.stringify({"Error": "400", "Fault": "Malformed syntax, 0 is equal to null, can't read null from a database."}))
-        return console.error(`HTTP 400, `.red)
+        res.end(JSON.stringify({"Error": 103, "Fault": "Malformed syntax, 0 is equal to null, can't read null from a database."}))
+        return console.error(`HTTP 103, `.red)
     }
     if(debug) {console.log('𝒾 Gallery ID passed sanitization checks'.yellow)}
 
@@ -83,9 +84,9 @@ app.get('/gallery/:id', async (req, res) => {
         try {
             var rows = returnedData.data.values[0];
         } catch(err) {
-            console.error(`HTTP 404, Found no data in the database for gallery ${galleryID}`.red)
+            console.error(`Error 201, Found no data in the database for gallery ${galleryID}`.red)
             res.status(404)
-            return res.end(JSON.stringify({ "Error": "404", "Fault": "Record could not be found in database" }))
+            return res.end(JSON.stringify({ "Error": 201, "Fault": "Record could not be found in database" }))
         } // Error handiling in the event of a 404
         return processRecord(rows)
     }
