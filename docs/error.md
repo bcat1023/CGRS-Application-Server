@@ -2,9 +2,16 @@
 ## Error Code Ranges
 | Error Code Range | Meaning |
 | :--------------- | :------ |
-| 0xx | ExpressJS Errors |
+| 0xx | Runtime/NodeJS Errors |
 | 1xx | GalleryID lookup errors |
 | 2xx | Database errors |
+
+## 0xx Error Code Range
+| 0xx Error Code | Meaning | Potenial Cause |
+| :--------------- | :------ | :-
+| 001 | A .env file could not be found | Either the file does not exist, is in the wrong location, or is named wrong  |
+| 002 | A credential.json file could not be found | Either the file does not exist, is in the wrong location, or is named wrong
+| 003 | The .env file does not contain a spreadsheet ID | File is either empty or syntax is invalid
 
 ## 1xx Error Code Range
 | 1xx Error Code | Meaning | Potenial Cause |

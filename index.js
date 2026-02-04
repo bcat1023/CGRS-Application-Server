@@ -14,6 +14,7 @@ console.log(`
 █░▀█ █▄█ ▀▄▀▄▀   █ █░▀█ █ ░█░ █ █▀█ █▄▄ █ █▄ █ █░▀█ █▄█ ▄ ▄ ▄
 `)
 var path = require('node:path')
+var fs = require('fs')
 var process = require('node:process')
 const { GoogleAuth } = require('google-auth-library');
 const { google } = require('googleapis')
@@ -23,6 +24,24 @@ var app = express()
 require('dotenv').config()
 var debug = false;
 console.log("✓ Modules loaded".green);
+console.log('⚠ Running early config check... please wait...'.blue)
+
+const envFile = path.resolve(process.cwd(), '.env');
+const credFile = path.resolve(process.cwd(), 'credentials.json');
+try {
+    fs.existsSync(envFile) // Check for .env file
+} catch {
+    throw new Error("Error Code 001 | A .env file could not be found");
+}
+try {
+    fs.existsSync(credFile) // Check for credentials file
+} catch {
+    throw new Error("Error Code 002 | A credential.json file could not be found");
+}
+if (process.env.SPREADSHEET_ID == undefined) {
+    throw new Error("Error 003 | The .env file does not contain a spreadsheet ID"); // Pretty self explanatory, read the error
+}
+console.log("✓ Early config test passed".green);
 if(process.argv[3] = 'test') {
     console.log('𝒾 Debug mode enabled'.yellow)
     var debug = true
