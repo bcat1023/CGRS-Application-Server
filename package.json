@@ -2,7 +2,7 @@
   "name": "cgrs-application-server",
   "version": "2.0.0-alpha",
   "description": "",
-  "license": "ISC",
+  "license": "",
   "author": "Brandon Gillen",
   "type": "commonjs",
   "main": "index.js",
